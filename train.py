@@ -58,9 +58,9 @@ def load_data(batch_size, workers):
     return dataloader_train, dataloader_test
 
 
-def run(args, writer):
+def run(args):
 
-    # writer = SummaryWriter(os.path.join(args['log_dir'], args['name']))
+    writer = SummaryWriter(os.path.join(args['log_dir'], args['name']))
 
     print('Loading model....')
     training_history = {'CrossEntropy': [],
