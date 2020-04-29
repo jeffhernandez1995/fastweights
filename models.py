@@ -72,7 +72,7 @@ class FastWeights(nn.Module):
                         )
                     else:
                         for tau in range(t):
-                            memory_matrix = (self.decay_lr ** (t - tau)) * (
+                            memory_matrix = memory_matrix + (self.decay_lr ** (t - tau)) * (
                                 torch.einsum('bh,bj->bhj', (out[tau], out[tau]))
                             )
                     memory_matrix = self.fast_lr * memory_matrix
@@ -89,7 +89,7 @@ class FastWeights(nn.Module):
                         )
                     else:
                         for tau in range(t):
-                            memory_matrix = (self.decay_lr ** (t - tau)) * (
+                            memory_matrix = memory_matrix + (self.decay_lr ** (t - tau)) * (
                                 torch.einsum('bh,bj->bhj', (out[tau], out[tau]))
                             )
                     memory_matrix = self.fast_lr * memory_matrix

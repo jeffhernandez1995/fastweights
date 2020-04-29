@@ -84,10 +84,14 @@ def run(args, random_seed=0):
 
     params = [p for p in model.parameters() if p.requires_grad]
 
-    optimizer = torch.optim.SGD(
-        params, lr=args['config']['lr'],
-        momentum=args['config']['momentum'],
-        weight_decay=args['config']['weight_decay']
+    # optimizer = torch.optim.SGD(
+    #     params, lr=args['config']['lr'],
+    #     momentum=args['config']['momentum'],
+    #     weight_decay=args['config']['weight_decay']
+    # )
+
+    optimizer = torch.optim.Adam(
+        params, lr=args['config']['lr']
     )
 
     if args['config']['scheduler'] == 'multi':
