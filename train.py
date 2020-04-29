@@ -16,12 +16,6 @@ from torch.utils.tensorboard import SummaryWriter
 from data_utils import create_data, ordinal_to_alpha
 from models import FastWeights
 
-# Set random seed
-np.random.seed(0)
-torch.manual_seed(0)
-torch.backends.cudnn.deterministic = True
-torch.backends.cudnn.benchmark = False
-
 
 def save_on_master(*args, **kwargs):
     torch.save(*args, **kwargs)
@@ -34,6 +28,10 @@ def load_data(batch_size, workers):
     # for i in range(10):
     #     print(ordinal_to_alpha([np.argmax(X) for X in X_train[i]]))
     #     print(ordinal_to_alpha([np.argmax(X) for X in X_test[i]]))
+    # assert 2 == 1
+
+    # print(y_test[:10])
+    # print(y_train[:10])
     # assert 2 == 1
 
     X_train, y_train = torch.as_tensor(X_train), torch.as_tensor(y_train)
@@ -58,7 +56,13 @@ def load_data(batch_size, workers):
     return dataloader_train, dataloader_test
 
 
-def run(args):
+def run(args, random_seed=0):
+
+    # Set random seed
+    np.random.seed(random_seed)
+    torch.manual_seed(random_seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
     writer = SummaryWriter(os.path.join(args['log_dir'], args['name']))
 
