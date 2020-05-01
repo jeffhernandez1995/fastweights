@@ -10,7 +10,7 @@ config:
   - 150
   max_norm: 0
   model:
-    control: true
+    control: false
     decay_lr: 0.95
     device: cuda
     extra_depth: false
@@ -27,6 +27,6 @@ config:
   scheduler: none
   weight_decay: 0.0005
   workers: 16
-dir: exps/exp_1_0_0_0/
+dir: exps/exp_0_0_0_0/
 log_dir: logs/
-name: exp_1_0_0_0
+name: exp_0_0_0_0

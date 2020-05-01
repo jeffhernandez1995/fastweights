@@ -10,14 +10,14 @@ config:
   - 150
   max_norm: 0
   model:
-    control: true
+    control: false
     decay_lr: 0.95
     device: cuda
     extra_depth: false
     fast_lr: 0.5
     hidden_size: 64
     input_size: 37
-    layer_norm: false
+    layer_norm: true
     out_size: 37
   momentum: 0.9
   output_dir: models/
@@ -27,6 +27,6 @@ config:
   scheduler: none
   weight_decay: 0.0005
   workers: 16
-dir: exps/exp_1_0_0_0/
+dir: exps/exp_0_1_0_0/
 log_dir: logs/
-name: exp_1_0_0_0
+name: exp_0_1_0_0
