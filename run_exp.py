@@ -14,7 +14,7 @@ def main():
     parser = argparse.ArgumentParser(description='Fast weights Training')
 
     parser.add_argument('--exp', default='all', help='run a single experiment or all experiments')
-    parser.add_argument('--seed', default=0, type=int, help='random seed')
+    parser.add_argument('--seed', default=1234, type=int, help='random seed')
     opts = parser.parse_args()
     exp_files = sorted(glob.glob('exps/*/config.yml'))
     exp_already_run = [str(Path(f).parent / 'config.yml') for f in glob.glob('exps/*/*_testinglog.npy')]
@@ -23,11 +23,24 @@ def main():
         for exp in exp_to_run:
             with open(exp, 'r') as f:
                 args = yaml.safe_load(f)
+            if not os.path.exists(os.path.join(args['log_dir'], args['name'])):
+                os.mkdir(os.path.join(args['log_dir'], args['name']))
+
+            if not os.path.exists(os.path.join(args['dir'], args['config']['output_dir'])):
+                os.mkdir(os.path.join(args['dir'], args['config']['output_dir']))
+            print(f'Working in experiment {args["name"]}')
             run(args, random_seed=opts.seed)
+
     elif opts.exp in exp_files:
         if opts.exp in exp_to_run:
             with open(opts.exp, 'r') as f:
                 args = yaml.safe_load(f)
+            if not os.path.exists(os.path.join(args['log_dir'], args['name'])):
+                os.mkdir(os.path.join(args['log_dir'], args['name']))
+
+            if not os.path.exists(os.path.join(args['dir'], args['config']['output_dir'])):
+                os.mkdir(os.path.join(args['dir'], args['config']['output_dir']))
+            print(f'Working in experiment {args["name"]}')
             run(args, random_seed=opts.seed)
         else:
             raise Exception('This is a done experiment')
